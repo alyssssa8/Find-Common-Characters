@@ -1,0 +1,30 @@
+class Solution {
+public:
+    vector<string> commonChars(vector<string>& A) {
+        if(A.empty()){
+            return {};
+        }
+        int count[26] = {0};
+        for(char ch : A[0]){
+            count[ch - 'a']++;
+        }
+        for(int i = 1;i<A.size();i++){
+            int c[26] = {0};
+            for(auto ch: A[i]){
+                c[ch - 'a']++;
+            }
+            for(int i =0;i<26;i++){
+                count[i] = min(count[i],c[i]);
+            }
+        }
+        vector<string> ret;
+        for(int i = 0;i<26;i++){
+            while(count[i]>0){
+                char ch = 'a'+i;
+                ret.push_back(string(1,ch));
+                count[i]--;
+            }
+        }
+        return ret;
+    }
+};
